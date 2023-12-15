@@ -47,10 +47,17 @@ letras.forEach(l => {
     btn.setAttribute('type','button')
     btn.innerHTML = l
     btn.addEventListener('click', () => {
-        // Desabilitando o botão depois do 
-        // primeiro clique
+        // Desabilitando o botão depois do primeiro clique
         btn.disabled = true
+        btn.classList.remove('hover:bg-cyan-600')
+        btn.classList.add(
+            'bg-slate-300'
+        )
         jogada(btn.innerHTML)
     })
+    // Adicionando CSS
+    btn.classList.add(
+        'bg-sky-500/75','hover:bg-cyan-600','p-2','px-4','mx-1','rounded-xl'
+        ) 
     botoes.appendChild(btn)
 })

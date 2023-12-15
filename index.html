@@ -5,15 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Forca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    Jogo da Forca!!
-    <div>Erros: <span id="errors">0</span></div>
+    <h1 class="text-center p-5 text-4xl">Jogo da Forca <span><i class="fa-solid fa-skull"></i></span></h1>
+    <div class="mx-4">Erros: <span id="errors">0</span></div>
     <br>
     <div id="palavra" class="p"></div>
     <br>
-    <div id="botoes"></div>
+    <div id="botoes" class="text-center"></div>
     <script src="scripts.js"></script>
 </body>
 </html>
