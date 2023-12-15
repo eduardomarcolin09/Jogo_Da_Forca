@@ -11,11 +11,20 @@
 </head>
 <body>
     <h1 class="text-center p-5 text-4xl">Jogo da Forca <span><i class="fa-solid fa-skull"></i></span></h1>
-    <div class="mx-4">Erros: <span id="errors">0</span></div>
+    <div class="mx-4 text-2xl"><i class="fa-solid fa-triangle-exclamation"></i> Erros: <span id="errors">0</span></div>
     <br>
-    <div id="palavra" class="p"></div>
-    <br>
+    <div class="flex items-center justify-center">
+        <div id="palavra" class="flex items-center justify-center"></div>
+    </div>
+    <div class="text-center my-4"><button id="reiniciarJogo">| Reiniciar Jogo |</button> </div>
     <div id="botoes" class="text-center"></div>
+    <br>
+    <div>
+        <form id="meuFormulario" method="post" class="">
+          <input type="text" id="x" name="x" placeholder="Digite o objetivo" class="text-center mx-2">
+          <input type="button" value="Atualizar Objetivo" onclick="atualizarObjetivo()" class="my-4">
+        </form>
+      </div>
     <script src="scripts.js"></script>
 </body>
 </html>
