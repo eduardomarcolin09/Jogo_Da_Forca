@@ -1,0 +1,9 @@
+
+#palavra {
+    display: flex;
+}
+.letra {
+    width: 25px;
+    height: 25px;
+    border: dashed 1px black;
+}
