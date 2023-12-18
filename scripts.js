@@ -11,24 +11,50 @@ const palavras = ['abacate', 'cachorro', 'computador', 'ventilador', 'toalha', '
 'tabuleiro', 'ventania', 'cometa', 'carrinho', 'teclado', 'espinha', 'descoberta', 'vela', 'batata', 'girassol',
 'elefante', 'mirtilo', 'pelicano', 'tomate', 'foguete', 'macaco', 'labirinto', 'girafa', 'plataforma', 'alegria'
 ]
-
+var palavraCorreta = ""
 let erros = 5 // Quantidade de Erros
 let acertos = 0 // Acertos
+var forca = document.getElementById('forca')
+// Função pra remover acento (substituida pelo regex)
+/*function removerAcentos(str) {
+    // função pronta do google
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+} */
+
+function Forca() {
+    
+    console.log(erros)
+    if (erros === 4) {
+        forca.innerHTML = "<pre> _______ <br> |/     | <br> |     (_) <br> |             <br> |             <br> |            </pre>";
+    } else if (erros === 3) {
+        forca.innerHTML = "<pre> _______ <br> |/     | <br> |     (_) <br> |     \\|/   <br> |             <br> |            </pre>";
+    } else if (erros === 2) {
+        forca.innerHTML = "<pre> _______ <br> |/     | <br> |     (_) <br> |     \\|/   <br> |      |      <br> |            </pre>";
+    } else if (erros === 1) {
+        forca.innerHTML = "<pre> _______ <br> |/     | <br> |     (_) <br> |     \\|/   <br> |      |      <br> |     / \\     </pre>";
+    } else if (erros === 0) {
+        forca.innerHTML = "<pre> _______ <br> |/     | <br> |     X_X <br> |     \\|/   <br> |      |      <br> |     / \\     </pre>";
+    } 
+    
+}
 
 function sortearPalavra() {
+    var forca = document.getElementById('forca')
+    forca.innerHTML = '<pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            '
     const palavraSorteada = palavras[Math.floor(Math.random() * palavras.length)]
 
     // Atualiza o objetivo com a palavra sorteada
     document.getElementById('x').value = palavraSorteada
-    atualizarObjetivo();
+    atualizarObjetivo()
 }
 
 function verificarCampo() {
     var x = document.getElementById('x').value
+    var regex = /^[a-zA-Z]+$/
     if (x.trim() === '') {
         alert('Por favor, digite um objetivo antes de enviar.')
-    } else if (!isNaN(x)) {
-        alert('Por favor, digite apenas letras no objetivo.')
+    } else if (!regex.test(x)) {
+        alert('Por favor, digite apenas letras sem caracteres especiais(espaços e acentos também).')
         document.getElementById('x').value = ''
     } else {
         atualizarObjetivo()
@@ -43,6 +69,7 @@ function reiniciarJogo() {
     // Resetar tudo
     erros = 5
     acertos = 0
+    forca.innerHTML = '<pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            '
     document.getElementById('erros').innerHTML = erros
     var palavraDiv = document.getElementById('palavra')
     palavraDiv.innerHTML = ''
@@ -82,7 +109,7 @@ function atualizarObjetivo() {
     erros = 5
     document.getElementById('erros').innerHTML = erros
     objetivo = x.toUpperCase().split('')
-
+    palavraCorreta = objetivo.join('')
     // Remove as DIVs existentes
     var palavraDiv = document.getElementById('palavra')
     palavraDiv.innerHTML = ''
@@ -107,7 +134,6 @@ const verificaFimJogo = () => {
     }
 
     if (erros === 0) {
-        const palavraCorreta = objetivo.join('')
         alert('Você errou! A palavra era: ' + palavraCorreta)
         setTimeout(function () {
             reiniciarJogo()
@@ -125,6 +151,7 @@ const verificaFimJogo = () => {
 }
 
 const jogada = (l) => {
+    
     if (objetivo.every((letra) => letra !== l)) {
         erros = erros-1
     } else {
@@ -136,6 +163,7 @@ const jogada = (l) => {
             }
         }
     }
+    Forca()
     verificaFimJogo()
 }
 
