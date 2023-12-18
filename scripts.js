@@ -1,9 +1,27 @@
 var objetivo = []
 
 const letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+const palavras = ['abacate', 'cachorro', 'computador', 'ventilador', 'toalha', 'montanha', 'ocelote', 'farol', 'cachecol', 'rato',
+'piscina', 'lampada', 'churrasco', 'quadro', 'tempo', 'garrafa', 'violino', 'parafuso', 'bicicleta', 'harmonia',
+'abacaxi', 'monitor', 'horizonte', 'caminho', 'sorvete', 'fogueira', 'calendário', 'rascunho', 'almofada', 'travesseiro',
+'espelho', 'sabedoria', 'planeta', 'piano', 'antena', 'lanterna', 'felicidade', 'porta', 'jornal', 'escultura',
+'energia', 'caverna', 'folha', 'cachoeira', 'melodia', 'navio', 'velocidade', 'quadra', 'dinossauro', 'neblina',
+'mochila', 'floresta', 'folclore', 'escada', 'Eduardo', 'oceano', 'colina', 'diamante', 'andorinha', 'brilho',
+'nebulosa', 'concha', 'astronauta', 'selva', 'microfone', 'serenidade', 'cajado', 'miragem', 'sonho', 'sabonete',
+'tabuleiro', 'ventania', 'cometa', 'carrinho', 'teclado', 'espinha', 'descoberta', 'vela', 'batata', 'girassol',
+'elefante', 'mirtilo', 'pelicano', 'tomate', 'foguete', 'macaco', 'labirinto', 'girafa', 'plataforma', 'alegria'
+]
 
-let erros = 3 // Quantidade de Erros
+let erros = 5 // Quantidade de Erros
 let acertos = 0 // Acertos
+
+function sortearPalavra() {
+    const palavraSorteada = palavras[Math.floor(Math.random() * palavras.length)]
+
+    // Atualiza o objetivo com a palavra sorteada
+    document.getElementById('x').value = palavraSorteada
+    atualizarObjetivo();
+}
 
 function verificarCampo() {
     var x = document.getElementById('x').value
@@ -11,6 +29,7 @@ function verificarCampo() {
         alert('Por favor, digite um objetivo antes de enviar.')
     } else if (!isNaN(x)) {
         alert('Por favor, digite apenas letras no objetivo.')
+        document.getElementById('x').value = ''
     } else {
         atualizarObjetivo()
     }
@@ -22,7 +41,7 @@ reiniciarBotao.addEventListener('click', reiniciarJogo)
 // Função para Reiniciar o Jogo
 function reiniciarJogo() {
     // Resetar tudo
-    erros = 3
+    erros = 5
     acertos = 0
     document.getElementById('erros').innerHTML = erros
     var palavraDiv = document.getElementById('palavra')
@@ -58,31 +77,26 @@ function habilitarBotoes() {
 // Função para atualizar o Objetivo da Forca
 function atualizarObjetivo() {
     var x = document.getElementById('x').value
+    
+    habilitarBotoes()
+    erros = 5
+    document.getElementById('erros').innerHTML = erros
+    objetivo = x.toUpperCase().split('')
 
-    // Verificar se o campo está vazio
-    if (x.trim() === '') {
-        alert('Por favor, digite um objetivo antes de enviar.')
-    } else {
-        habilitarBotoes()
-        erros = 3
-        document.getElementById('erros').innerHTML = erros
-        objetivo = x.toUpperCase().split('')
+    // Remove as DIVs existentes
+    var palavraDiv = document.getElementById('palavra')
+    palavraDiv.innerHTML = ''
 
-        // Remove as DIVs existentes
-        var palavraDiv = document.getElementById('palavra')
-        palavraDiv.innerHTML = ''
+    // Cria novas DIVs com base no comprimento do novo objetivo
+    objetivo.forEach((_, idx) => {
+        const letra = document.createElement('DIV')
+        letra.setAttribute('class', 'letra')
+        letra.setAttribute('id', `letra${idx}`)
+        letra.classList.add('p-5', 'text-center', 'text-4xl', 'flex', 'items-center', 'justify-center', 'border-dashed', 'border-2', 'border-black', 'w-12', 'h-12')
+        palavraDiv.appendChild(letra)
+    })
 
-        // Cria novas DIVs com base no comprimento do novo objetivo
-        objetivo.forEach((_, idx) => {
-            const letra = document.createElement('DIV')
-            letra.setAttribute('class', 'letra')
-            letra.setAttribute('id', `letra${idx}`)
-            letra.classList.add('p-5', 'text-center', 'text-4xl', 'flex', 'items-center', 'justify-center', 'border-dashed', 'border-2', 'border-black', 'w-12', 'h-12')
-            palavraDiv.appendChild(letra)
-        })
-
-        document.getElementById('x').value = ''
-    }
+    document.getElementById('x').value = ''
 }
 
 const verificaFimJogo = () => {

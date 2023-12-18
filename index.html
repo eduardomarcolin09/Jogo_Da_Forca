@@ -14,20 +14,21 @@
 </head>
 <body>
     <h1 class="text-center p-5 text-3xl"><span><i class="fa-solid fa-skull"></i> Jogo da Forca <span><i class="fa-solid fa-skull"></i></span></h1>
-    <div class="mx-4 text-xl"><i class="fa-solid fa-heart"></i> Vidas: <span id="erros">3</span></div>
+    <div class="mx-4 text-xl"><i class="fa-solid fa-heart"></i> Vidas: <span id="erros">5</span></div>
     <br>
     <div class="flex items-center justify-center">
         <div id="palavra" class="flex items-center justify-center"></div>
     </div>
-    <div class="text-center mt-6 mb-6"><span id="reiniciarJogo" class="border-2 border-black p-2 rounded-xl">Clique para Reiniciar</span></div>
+    <div class="text-center mt-6 mb-6"><span id="reiniciarJogo" class="border-2 border-black p-2 rounded-xl hover:bg-slate-200 duration-500">Clique para Reiniciar</span></div>
     <div id="botoes" class="text-center"></div>
     <br>
     <div>
         <form id="meuFormulario" method="post" class="">
-          <input type="text" id="x" name="x" placeholder="Digite o objetivo" class="text-center mx-2">
+          <input type="password" id="x" name="x" placeholder="Digite o objetivo" class="text-center mx-2 p-2">
           <input type="button" value="Atualizar Objetivo" onclick="verificarCampo()" class="my-4">
         </form>
       </div>
+      <div class="my-4"><span id="sortearPalavra" class=" mx-2 border-2 border-black p-2 rounded-xl hover:bg-slate-200 duration-500" onclick="sortearPalavra()">Sortear Palavra <i class="fa-solid fa-bomb"></i></span></div>
     <script src="scripts.js"></script>
 </body>
 </html>
