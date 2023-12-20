@@ -12,23 +12,39 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="favicon_io/site.webmanifest">
 </head>
-<body>
+<body class="font-sans bg-gray-100">
     <h1 class="text-center p-5 text-3xl"><span><i class="fa-solid fa-skull"></i> Jogo da Forca <span><i class="fa-solid fa-skull"></i></span></h1>
-    <div class="mx-4 text-xl"><i class="fa-solid fa-heart"></i> Vidas: <span id="erros">5</span></div>
-    <div id="forca" class="text-left my-4 mx-4 p-2"><pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            </div>
-    <div class="flex items-center justify-center">
-      <div id="palavra" class="flex items-center justify-center"></div>
+  
+    <div class="flex ">
+        <div class="mx-4 text-xl"><i class="fa-solid fa-heart"></i> Vidas: <span id="erros">5</span></div>
+        <button id="dica" class="ml-auto mx-20 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 duration-300 cursor-pointer" onclick="Dica()">
+            Dica <i class="fa-solid fa-lightbulb"></i>
+        </button>
     </div>
-    <div class="text-center mt-6 mb-6"><span id="reiniciarJogo" class="border-2 border-black p-2 rounded-xl hover:bg-slate-200 duration-500">Desistir</span></div>
+    
+    <div class="flex">
+        <div id="forca" class="text-left items-left my-4 mx-4 p-2 border border-gray-300 rounded-lg">
+            <pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |        
+        </div>
+        <div id="palavra" class="flex items-center justify-center"></div>
+    </div>
+
+    <div class="flex text-center justify-center my-2">
+        <button id="sortearPalavra" class="mx-2 my-2 p-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 duration-300 cursor-pointer" onclick="sortearPalavra()">
+            Sortear Palavra <i class="fa-solid fa-gamepad"></i>
+        </button>
+        <button id="reiniciarJogo" class="mx-2 my-2 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 duration-300 cursor-pointer" onclick="reiniciarJogo()">
+            Desistir <i class="fa-solid fa-flag"></i>
+        </button>
+    </div>
+
     <div id="botoes" class="text-center"></div>
-    <br>
-    <div>
-        <form id="meuFormulario" method="post" class="">
-          <input type="password" id="x" name="x" placeholder="Digite o objetivo" class="text-center mx-2 p-2">
-          <input type="button" value="Atualizar Objetivo" onclick="verificarCampo()" class="my-4">
+    <div class="mx-2">
+        <form id="meuFormulario" method="post" class="flex items-center">
+            <input type="password" id="x" name="x" placeholder="Digite o objetivo" class="text-center p-1 mx-2 border border-gray-300 rounded-md">
+            <input type="button" value="Atualizar Objetivo" onclick="verificarCampo()" class="my-4 px-4 py-2 bg-gray-800 text-white rounded-md cursor-pointer">
         </form>
-      </div>
-      <div class="my-4"><span id="sortearPalavra" class=" mx-2 border-2 border-black p-2 rounded-xl hover:bg-slate-200 duration-500" onclick="sortearPalavra()">Sortear Palavra <i class="fa-solid fa-bomb"></i></span></div>
+    </div>
     <script src="scripts.js"></script>
 </body>
 </html>

@@ -1,9 +1,8 @@
 var objetivo = []
-
 const letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 const palavras = ['abacate', 'cachorro', 'computador', 'ventilador', 'toalha', 'montanha', 'ocelote', 'farol', 'cachecol', 'rato',
 'piscina', 'lampada', 'churrasco', 'quadro', 'tempo', 'garrafa', 'violino', 'parafuso', 'bicicleta', 'harmonia',
-'abacaxi', 'monitor', 'horizonte', 'caminho', 'sorvete', 'fogueira', 'calendário', 'rascunho', 'almofada', 'travesseiro',
+'abacaxi', 'monitor', 'horizonte', 'caminho', 'sorvete', 'fogueira', 'tema', 'rascunho', 'almofada', 'travesseiro',
 'espelho', 'sabedoria', 'planeta', 'piano', 'antena', 'lanterna', 'felicidade', 'porta', 'jornal', 'escultura',
 'energia', 'caverna', 'folha', 'cachoeira', 'melodia', 'navio', 'velocidade', 'quadra', 'dinossauro', 'neblina',
 'mochila', 'floresta', 'folclore', 'escada', 'Eduardo', 'oceano', 'colina', 'diamante', 'andorinha', 'brilho',
@@ -11,10 +10,14 @@ const palavras = ['abacate', 'cachorro', 'computador', 'ventilador', 'toalha', '
 'tabuleiro', 'ventania', 'cometa', 'carrinho', 'teclado', 'espinha', 'descoberta', 'vela', 'batata', 'girassol',
 'elefante', 'mirtilo', 'pelicano', 'tomate', 'foguete', 'macaco', 'labirinto', 'girafa', 'plataforma', 'alegria'
 ]
+
+var forca = document.getElementById('forca')
+var btndica = document.getElementById('dica')
+var estadoDica = 0
 var palavraCorreta = ""
 let erros = 5 // Quantidade de Erros
 let acertos = 0 // Acertos
-var forca = document.getElementById('forca')
+
 // Função pra remover acento (substituida pelo regex)
 /*function removerAcentos(str) {
     // função pronta do google
@@ -22,8 +25,7 @@ var forca = document.getElementById('forca')
 } */
 
 function Forca() {
-    
-    console.log(erros)
+    // daria pra usar CASE, prefiro IF
     if (erros === 4) {
         forca.innerHTML = "<pre> _______ <br> |/     | <br> |     (_) <br> |             <br> |             <br> |            </pre>";
     } else if (erros === 3) {
@@ -38,48 +40,55 @@ function Forca() {
     
 }
 
+// Função p/ sortear uma palavra do vetor "objetivo"
 function sortearPalavra() {
-    var forca = document.getElementById('forca')
     forca.innerHTML = '<pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            '
     const palavraSorteada = palavras[Math.floor(Math.random() * palavras.length)]
-
-    // Atualiza o objetivo com a palavra sorteada
     document.getElementById('x').value = palavraSorteada
     atualizarObjetivo()
 }
 
+// Função pra verificar o value do campo de atualizar objetivo
 function verificarCampo() {
     var x = document.getElementById('x').value
     var regex = /^[a-zA-Z]+$/
     if (x.trim() === '') {
-        alert('Por favor, digite um objetivo antes de enviar.')
+        alert('Por favor, digite um objetivo antes de enviar')
     } else if (!regex.test(x)) {
-        alert('Por favor, digite apenas letras sem caracteres especiais(espaços e acentos também).')
+        alert('Por favor, digite apenas letras sem caracteres especiais(espaços e acentos também)')
         document.getElementById('x').value = ''
     } else {
         atualizarObjetivo()
     }
 }
 
-const reiniciarBotao = document.getElementById('reiniciarJogo')
-reiniciarBotao.addEventListener('click', reiniciarJogo)
-
-// Função para Reiniciar o Jogo
+// Função para reiniciar o jogo
 function reiniciarJogo() {
-    // Resetar tudo
-    erros = 5
-    acertos = 0
-    forca.innerHTML = '<pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            '
-    document.getElementById('erros').innerHTML = erros
-    var palavraDiv = document.getElementById('palavra')
-    palavraDiv.innerHTML = ''
-    Array.from(document.getElementsByTagName('button')).forEach((btn) => {
-        btn.disabled = false
-        btn.classList.remove('bg-slate-300')
-        btn.classList.add('hover:bg-cyan-600')
-    })
-    document.getElementById('x').value = ''
-    desabilitarBotoes()
+    if(objetivo.length == 0) {
+        alert('Não desista antes de tentar algum objetivo (:')
+    }
+    else {
+        alert('A palavra era: ' + palavraCorreta)
+        // Resetar tudo
+        estadoDica = 0
+        btndica.disabled = false
+        btndica.classList.add('hover:bg-gray-700')
+        btndica.classList.remove('bg-slate-300')
+        objetivo = []
+        erros = 5
+        acertos = 0
+        forca.innerHTML = '<pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            '
+        document.getElementById('erros').innerHTML = erros
+        var palavraDiv = document.getElementById('palavra')
+        palavraDiv.innerHTML = ''
+        Array.from(document.getElementsByTagName('buttonsletras')).forEach((btn) => {
+            btn.disabled = false
+            btn.classList.remove('bg-slate-300')
+            btn.classList.add('hover:bg-cyan-600')
+        })
+        document.getElementById('x').value = ''
+        desabilitarBotoes()
+    }
 }
 
 // Função para Desabilitar e Habilitar os Botões
@@ -93,6 +102,10 @@ function desabilitarBotoes() {
 }
 
 function habilitarBotoes() {
+    estadoDica = 0
+    btndica.disabled = false
+    btndica.classList.add('hover:bg-gray-700')
+    btndica.classList.remove('bg-slate-300')
     const botoes = document.getElementById('botoes')
     Array.from(botoes.getElementsByTagName('button')).forEach((btn) => {
         btn.disabled = false
@@ -104,7 +117,7 @@ function habilitarBotoes() {
 // Função para atualizar o Objetivo da Forca
 function atualizarObjetivo() {
     var x = document.getElementById('x').value
-    
+    forca.innerHTML = '<pre> _______ <br> |/     | <br> |         <br> |             <br> |             <br> |            '
     habilitarBotoes()
     erros = 5
     document.getElementById('erros').innerHTML = erros
@@ -122,19 +135,45 @@ function atualizarObjetivo() {
         letra.classList.add('p-5', 'text-center', 'text-4xl', 'flex', 'items-center', 'justify-center', 'border-dashed', 'border-2', 'border-black', 'w-12', 'h-12')
         palavraDiv.appendChild(letra)
     })
-
     document.getElementById('x').value = ''
+}
+
+// Função para dar dica
+function Dica() {
+    if(objetivo.length == 0) {
+        alert('Digite ou sorteie um objetivo antes de usar a Dica (:')
+    }
+    if (estadoDica === 0) {
+        // Mostra as duas primeiras letras no primeiro clique
+        var duasPrimeirasLetras = objetivo.slice(0, 2)
+        var dicaRestante = Array(objetivo.length - 2).fill('_')
+        var dicaCompleta = duasPrimeirasLetras.concat(dicaRestante)
+        var dicaString = dicaCompleta.join(' ')
+        alert(dicaString)
+
+        estadoDica = 1;
+    } else if (estadoDica === 1) {
+        // Mostra as duas primeiras e as duas últimas letras no segundo clique
+        var dicaCompleta = objetivo.slice(0, 2).concat(Array(objetivo.length - 4).fill('_'), objetivo.slice(-2));
+        var dicaString = dicaCompleta.join(' ');
+        alert(dicaString);
+
+        // Resetar
+        estadoDica = 0;
+        btndica.disabled = true
+        btndica.classList.remove('hover:bg-gray-700')
+        btndica.classList.add('bg-slate-300')
+    }
 }
 
 const verificaFimJogo = () => {
     document.getElementById('erros').innerHTML = erros
     if (objetivo.length === 0) {
         desabilitarBotoes()
-        return // Saia da função se o objetivo estiver vazio
+        return // Vai sair da função se o objetivo estiver vazio
     }
 
     if (erros === 0) {
-        alert('Você errou! A palavra era: ' + palavraCorreta)
         setTimeout(function () {
             reiniciarJogo()
             desabilitarBotoes()
@@ -151,7 +190,6 @@ const verificaFimJogo = () => {
 }
 
 const jogada = (l) => {
-    
     if (objetivo.every((letra) => letra !== l)) {
         erros = erros-1
     } else {
